@@ -6,6 +6,8 @@ public class TimeManager : MonoBehaviour
 {
     private int lastTime = -1;
     private float timer;
+    private float moveWait = 2.0f;
+
 
     public void Start()
     {
