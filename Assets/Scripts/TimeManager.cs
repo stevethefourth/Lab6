@@ -7,8 +7,16 @@ public class TimeManager : MonoBehaviour
     private int lastTime = -1;
     private float timer;
     private float moveWait = 2.0f;
+    private float nextMove = 2.0f;
     [SerializeField] private Transform[] transformArray;
     Camera mainCamera;
+    private float redX;
+    private float redY;
+    private float blueX;
+    private float blueY;
+
+
+
 
     public void Start()
     {
@@ -21,6 +29,12 @@ public class TimeManager : MonoBehaviour
     public void Update()
     {
         timer += Time.deltaTime;
+        if((int)timer == nextMove)
+        {
+            nextMove = (int)timer + moveWait;
+            MoveObject();
+        }
+        
         if ((int)timer > lastTime)
         {
             Debug.Log((int)timer);
@@ -48,6 +62,50 @@ public class TimeManager : MonoBehaviour
         }
 
     }
+    private void MoveObject() 
+    {
+        
+        redX = transformArray[0].position.x;
+        redY = transformArray[0].position.y;
+        blueX = transformArray[1].position.x;
+        blueY = transformArray[1].position.y;
+
+        switch (redX+redY)
+        {
+            case 3:
+                transformArray[0].SetPositionAndRotation(new Vector3(2.0f, -1.0f, -0.0f), Quaternion.identity);
+                break;
+            case 1:
+                transformArray[0].SetPositionAndRotation(new Vector3(-2.0f, -1.0f, -0.0f), Quaternion.identity);
+                break;
+            case -3:
+                transformArray[0].SetPositionAndRotation(new Vector3(-2.0f, 1.0f, -0.0f), Quaternion.identity);
+                break;
+            case -1:
+                transformArray[0].SetPositionAndRotation(new Vector3(2.0f, 1.0f, -0.0f), Quaternion.identity);
+                break;
+        }
+
+        switch (blueX + blueY)
+        {
+            case 3:
+                transformArray[1].SetPositionAndRotation(new Vector3(2.0f, -1.0f, -0.0f), Quaternion.identity);
+                break;
+            case 1:
+                transformArray[1].SetPositionAndRotation(new Vector3(-2.0f, -1.0f, -0.0f), Quaternion.identity);
+                break;
+            case -3:
+                transformArray[1].SetPositionAndRotation(new Vector3(-2.0f, 1.0f, -0.0f), Quaternion.identity);
+                break;
+            case -1:
+                transformArray[1].SetPositionAndRotation(new Vector3(2.0f, 1.0f, -0.0f), Quaternion.identity);
+                break;
+        }
+
+
+    }
+
+
 
     private void resetTime()
     {
