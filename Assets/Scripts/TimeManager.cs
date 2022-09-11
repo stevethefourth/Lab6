@@ -7,12 +7,15 @@ public class TimeManager : MonoBehaviour
     private int lastTime = -1;
     private float timer;
     private float moveWait = 2.0f;
-
+    [SerializeField] private Transform[] transformArray;
+    Camera mainCamera;
 
     public void Start()
     {
         resetTime();
-        
+        mainCamera = Camera.main;
+        mainCamera.orthographic = true;
+        mainCamera.orthographicSize = 2.5f;
     }
 
     public void Update()
